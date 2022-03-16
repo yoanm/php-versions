@@ -1,0 +1,58 @@
+name: Versions updater
+on:
+  workflow_dispatch:
+  schedule:
+    # Execute workflow once a week
+    - cron: '42 2 * * 0'
+
+
+jobs:
+  actives:
+    name: "Update actives.json"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'php-versions-repo'
+    steps:
+      - name: Get current date/time
+        id: datetime
+        run: echo "::set-output name=value::$(date +'%Y-%m-%d')"
+        working-directory: '/tmp' # Repository is not yet there => use tmp directory as working directory
+      - name: "Checkout php/web-php repository"
+        uses: actions/checkout@v2
+        with:
+          repository: 'php/web-php'
+          path: 'web-php-repo'
+      - name: "Add custom script"
+        run: |
+          echo '<?php
+          include "include/branches.inc";
+          echo json_encode(get_active_branches());
+          ' > generate_active_version.php
+          cat generate_active_version.php
+        working-directory: 'web-php-repo'
+      - name: "Generate active versions JSON file"
+        id: active_versions
+        run: |
+          php generate_active_version.php
+          echo "::set-output name=json::'$(php generate_active_version.php)'"
+        working-directory: 'web-php-repo'
+      - name: "Checkout yoanm/php-version repository"
+        uses: actions/checkout@v2
+        with:
+          path: 'php-versions-repo'
+      - name: "Update actives.json file"
+        run: |
+          php ../web-php-repo/generate_active_version.php
+          php ../web-php-repo/generate_active_version.php > actives.json
+          cat actives.json
+      - name: "Add / commit / push"
+        uses: EndBug/add-and-commit@v9
+        with:
+          cwd: 'php-versions-repo'
+          add: 'actives.json'
+          message: |
+            Update actives.json (${{ steps.datetime.outputs.value }})
+            
+            See ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          push: "origin master"
