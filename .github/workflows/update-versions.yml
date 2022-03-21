@@ -41,6 +41,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: 'php-versions-repo'
+          token: '${{ secrets.PAT_COMMIT }}'
       - name: "Update actives.json file"
         run: |
           php ../web-php-repo/generate_active_version.php
