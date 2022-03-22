@@ -1,9 +1,12 @@
 name: Versions updater
 on:
-  workflow_dispatch:
+  push:
+    branches: [master] # Trigger workflow for any push to master
+  pull_request:
+    branches: [ master ] # Trigger workflow for any PR targeting master
+  workflow_dispatch: # Allow manual trigger
   schedule:
-    # Execute workflow once a week
-    - cron: '42 2 * * 0'
+    - cron: '42 2 * * 0' # Trigger workflow once a week
 
 
 jobs:
