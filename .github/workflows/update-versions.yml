@@ -5,6 +5,11 @@ on:
   pull_request:
     branches: [ master ] # Trigger workflow for any PR targeting master
   workflow_dispatch: # Allow manual trigger
+#    inputs: # Enable this for signed commit in case GPG key is updated
+#      allowEmptyCommit:
+#        description: 'Allow empty commit (yes/no)'
+#        required: true
+#        default: 'no'
   schedule:
     - cron: '42 2 * * 0' # Trigger workflow once a week
 
