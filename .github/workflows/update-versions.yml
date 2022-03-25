@@ -48,6 +48,7 @@ jobs:
       - name: "Checkout yoanm/php-version repository"
         uses: actions/checkout@v2
         with:
+          ref: '${{ github.head_ref || github.ref }}'
           path: 'php-versions-repo'
           token: '${{ secrets.PAT_COMMIT }}'
       - name: "Update actives.json file"
@@ -64,4 +65,4 @@ jobs:
             Update actives.json (${{ steps.datetime.outputs.value }})
             
             See ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          push: "origin master"
+          push: true
