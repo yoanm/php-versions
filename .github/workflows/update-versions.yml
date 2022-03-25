@@ -57,12 +57,20 @@ jobs:
           php ../web-php-repo/generate_active_version.php > actives.json
           cat actives.json
       - name: "Add / commit / push"
-        uses: EndBug/add-and-commit@v9
-        with:
-          cwd: 'php-versions-repo'
-          add: 'actives.json'
-          message: |
-            Update actives.json (${{ steps.datetime.outputs.value }})
-            
-            See ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          push: true
+        run: |
+          git config user.name "Yoanm"
+          git config user.email "yoanm@users.noreply.github.com"
+          git add actives.json
+          if [ $(git diff --cached --name-only | wc -l) -gt 0 ]; then
+            echo "Pushing updated file:"
+            git diff --cached actives.json
+            git commit -m "Update actives.json (${{ steps.datetime.outputs.value }}) \
+            \
+            See ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} \
+            \
+            ";
+            git push origin;          
+          else
+            echo "Nothing to commit !";
+          fi;
+        working-directory: 'php-versions-repo'
