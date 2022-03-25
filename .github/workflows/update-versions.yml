@@ -35,7 +35,7 @@ jobs:
         run: |
           echo '<?php
           include "include/branches.inc";
-          echo json_encode(get_active_branches());
+          echo json_encode(get_active_branches(), JSON_PRETTY_PRINT);
           ' > generate_active_version.php
           cat generate_active_version.php
         working-directory: 'web-php-repo'
@@ -63,7 +63,7 @@ jobs:
           git add actives.json
           if [ $(git diff --cached --name-only | wc -l) -gt 0 ]; then
             echo "Pushing updated file:"
-            git diff --cached actives.json
+            git diff --cached --color actives.json
             git commit -m "Update actives.json (${{ steps.datetime.outputs.value }}) \
             \
             See ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} \
