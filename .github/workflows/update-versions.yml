@@ -44,12 +44,12 @@ jobs:
           path: 'php-versions-repo'
           token: '${{ secrets.PAT_COMMIT }}'
 
-      - name: "Update actives.json file"
+      - name: "Update active versions file"
         run: |
           php bin/generate_active_versions.php > actives.json
           cat actives.json
 
-      - name: "Update nightly.json file"
+      - name: "Update nightly versions file"
         run: |
           php bin/generate_nightly_versions.php > nightly-versions.json
           cat nightly-versions.json
