@@ -25,40 +25,91 @@ jobs:
       run:
         working-directory: 'php-versions-repo'
     steps:
+
       - name: Get current date/time
         id: datetime
         run: echo "::set-output name=value::$(date +'%Y-%m-%d')"
         working-directory: '/tmp' # Repository is not yet there => use tmp directory as working directory
+
       - name: "Checkout php/web-php repository"
         uses: actions/checkout@v2
         with:
           repository: 'php/web-php'
           path: 'web-php-repo'
-      - name: "Add custom script"
+
+      - name: "Add custom scripts"
         run: |
           echo '<?php
           include "include/branches.inc";
           echo json_encode(get_active_branches(), JSON_PRETTY_PRINT)."\n";
           ' > generate_active_version.php
           cat generate_active_version.php
+
+          echo '<?php
+          include "include/release-qa.php";
+
+          function _format_version(string $v): string {
+            return preg_replace('/^(\d+\.\d+).*$/', '\1', $v);
+          }
+          $activeVersionList = array_flip(
+            array_merge(
+              ...array_values(
+                array_map(
+                  static fn (array $data): array => array_keys($data), 
+                  $active_branches
+                )
+              )
+            )
+          );
+          $qaReleaseList = array_filter(
+            $QA_RELEASES, 
+            fn (string $key): bool => !array_key_exists(_format_version($key), $activeVersionList),
+            ARRAY_FILTER_USE_KEY,
+          );
+          
+          $output = [];
+          foreach ($qaReleaseList as $version => $data) {
+          	if (is_array($data) && $data['active'] === true && $data['release']['number'] > 0) {
+              $output[_format_version($version)] = $data;
+          	}
+          }
+          ksort($output, SORT_REGULAR);
+          
+          echo json_encode($output, JSON_PRETTY_PRINT)."\n";
+          ' > generate_nightly_versions.php
+          cat generate_nightly_versions.php
         working-directory: 'web-php-repo'
+
       - name: "Generate active versions JSON file"
         id: active_versions
         run: |
-          php generate_active_version.php
-          echo "::set-output name=json::'$(php generate_active_version.php)'"
+          DATA=$(php generate_active_version.php)
+          echo $DATA
+          echo "::set-output name=json::'${DATA}'"
         working-directory: 'web-php-repo'
+
+      
+      - name: "Generate nightly versions JSON file"
+        id: nightly_versions
+        run: |
+          DATA=$(php generate_active_version.php)
+          echo $DATA
+          echo "::set-output name=json::'${DATA}'"
+        working-directory: 'web-php-repo'
+
       - name: "Checkout yoanm/php-version repository"
         uses: actions/checkout@v2
         with:
           ref: '${{ github.head_ref || github.ref }}'
           path: 'php-versions-repo'
           token: '${{ secrets.PAT_COMMIT }}'
+
       - name: "Update actives.json file"
         run: |
           php ../web-php-repo/generate_active_version.php
           php ../web-php-repo/generate_active_version.php > actives.json
           cat actives.json
+
       - name: "Add / commit / push"
         run: |
           git config user.name "${{ env.COMMIT_AUTHOR_NAME }}"
