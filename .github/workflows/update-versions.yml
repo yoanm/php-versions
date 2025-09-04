@@ -51,7 +51,7 @@ jobs:
 
       - name: "Update nightly.json file"
         run: |
-          php bin/generate_nightly_versions.php > nightly.json
+          php bin/generate_nightly_versions.php > nightly-versions.json
           cat nightly-versions.json
 
       - name: "Add / commit / push"
