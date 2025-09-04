@@ -49,16 +49,16 @@ jobs:
           php bin/generate_active_versions.php > actives.json
           cat actives.json
 
-      - name: "Update nightly versions file"
+      - name: "Update QA releases file"
         run: |
-          php bin/generate_nightly_versions.php > nightly-versions.json
-          cat nightly-versions.json
+          php bin/generate_qa-releases.php > qa-releases.json
+          cat qa-releases.json
 
       - name: "Add / commit / push"
         run: |
           git config user.name "${{ env.COMMIT_AUTHOR_NAME }}"
           git config user.email "${{ env.COMMIT_AUTHOR_EMAIL }}"
-          git add actives.json nightly-versions.json
+          git add actives.json qa-releases.json
           if [ $(git diff --cached --name-only | wc -l) -gt 0 ]; then
             echo "Pushing updated file:"
             git diff --cached --color actives.json
