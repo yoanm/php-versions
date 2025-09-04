@@ -1,5 +1,6 @@
 {
     "8.5": {
+        "version": "8.5.0",
         "active": true,
         "release": {
             "type": "beta",
