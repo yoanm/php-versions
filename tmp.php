@@ -1,4 +1,5 @@
 <?php
+include "../web-php-repo/include/branches.inc";
 include "../web-php-repo/include/release-qa.php";
 
 function _format_version(string $v): string {
@@ -9,7 +10,7 @@ $activeVersionList = array_flip(
     ...array_values(
       array_map(
         static fn (array $data): array => array_keys($data), 
-        $active_branches
+        get_active_branches()
       )
     )
   )
