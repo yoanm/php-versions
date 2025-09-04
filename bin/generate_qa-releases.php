@@ -2,33 +2,44 @@
 include "../web-php-repo/include/branches.inc";
 include "../web-php-repo/include/release-qa.php";
 
+
 function _format_short_version(string $v): string {
-  return preg_replace('/^(\d+\.\d+).*$/', '\1', $v);
+    return preg_replace('/^(\d+\.\d+).*$/', '\1', $v);
 }
 $activeVersionList = array_flip(
-  array_merge(
-    ...array_values(
-      array_map(
-        static fn (array $data): array => array_keys($data), 
-        get_active_branches()
-      )
+    array_merge(
+        ...array_values(
+            array_map(
+                static fn (array $data): array => array_keys($data),
+                get_active_branches()
+            )
+        )
     )
-  )
 );
-$qaReleaseList = array_filter(
-  $QA_RELEASES, 
-  fn (string $key): bool => !array_key_exists(_format_short_version($key), $activeVersionList),
-  ARRAY_FILTER_USE_KEY,
-);
+$qaReleaseList = $QA_RELEASES;
+ksort($qaReleaseList, SORT_REGULAR);
 
-$output = [];
+$releaseList = [];
+$nightly = null;
 foreach ($qaReleaseList as $version => $data) {
-  if (is_array($data) && $data['active'] === true && $data['release']['number'] > 0) {
-    $rootKey = preg_replace('/^(\d+)\..*$/', '\1', $version);
-    $output[$rootKey] ??= [];
-    $output[$rootKey][_format_short_version($version)] = ['version' => $version, ...$data];
-  }
-}
-ksort($output, SORT_REGULAR);
+    if (is_array($data) && $data['active'] === true && $data['release']['number'] > 0) {
+        $majorVersion = preg_replace('/^(\d+)\..*$/', '\1', $version);
+        $shortVersion = _format_short_version($version);
+        $isSupported = array_key_exists($shortVersion, $activeVersionList);
 
-echo json_encode($output, JSON_PRETTY_PRINT)."\n";
+        $releaseList[$majorVersion] ??= [];
+        $releaseList[$majorVersion][$shortVersion] = [
+            ...$data,
+            'version' => $version,
+            'short_version' => $shortVersion,
+            'major_version' => $majorVersion,
+            'supported' => $isSupported
+        ];
+
+        if (!$isSupported) {
+            $nightly = $shortVersion;
+        }
+    }
+}
+
+echo json_encode($releaseList, JSON_PRETTY_PRINT)."\n";

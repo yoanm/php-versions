@@ -12,37 +12,61 @@ Example with `7.4+` versions:
 ```json
 {
     "7": {
-        "7.4": { [...] },
+        "7.4": { [...Original content...] },
     },
     "8": {
-        "8.0": { [...] },
-        "8.1": { [...] },
+        "8.0": { [...Original content...] },
+        "8.1": { [...Original content...] },
         [...]
     }
 ```
 
-## Nightly versions
-See `nightly-versions.json` file, content mostly comes from [https://www.php.net/release-candidates.php?format=json](https://www.php.net/release-candidates.php?format=json) but is filtered and enhanced
+## QA releases
+See `qa-releases.json` file, content mostly comes from [https://www.php.net/release-candidates.php?format=json](https://www.php.net/release-candidates.php?format=json) but is filtered and enhanced.
 
 > [!CAUTION]
+> 
 > Be aware that the list may be empty !
 > 
-> In that case, it means there is no nightly version to test at this point in time
+> In that case, it means there is no QA releases to test at this point in time
 
-The original content is filtered to remove dev versions for any currently supported versions (and therefore ends up with only nightly versions)
 
-Resulting output ressemble to the one use for `actives.json` file !
+The original content is filtered to remove versions without any releases available.
 
-Root keys and/or the `version` fields are most likely all you need.
+Additional properties are added:
+- `version`: The long version (e.g. `X.Y.Z`)
+- `short_version`: Major and minor version (e.g. `X.Y`)
+- `major_version`: Only the major version (e.g. `X`)
+- `supported`: Whether the version is supported (=active) or not.
+
+Resulting output resemble to the one use for `actives.json` file !
 
 Example with `8.5` version:
 ```json
 {
   "8": {
-    "8.5": {"version": "8.5.0", [...] }
+    "8.4": {
+      [...Original content...]
+      "version": "8.4.12",
+      "short_version": "8.4",
+      "major_version": "8",
+      "supported": true
+    },
+    "8.5": {
+      [...Original content...]
+      "version": "8.5.0",
+      "short_version": "8.5",
+      "major_version": "8",
+      "supported": false
+    }
   }
 }
 ```
+
+> [!TIP]
+>
+> In order to find the nightly version, you can use the following `jq` filter command: `jq -r 'last(.[] | .[] | select(.supported == false)) | .short_version'`
+>
 
 <hr/>
 
