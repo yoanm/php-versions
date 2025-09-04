@@ -46,27 +46,24 @@ jobs:
 
       - name: "Update actives.json file"
         run: |
-          php tmp0.php
-          php tmp0.php > actives.json
+          php bin/generate_active_versions.php > actives.json
           cat actives.json
 
       - name: "Update nightly.json file"
         run: |
-          php tmp.php
-          php tmp.php > nightly.json
-          cat nightly.json
+          php bin/generate_nightly_versions.php > nightly.json
+          cat nightly-versions.json
 
       - name: "Add / commit / push"
         run: |
           git config user.name "${{ env.COMMIT_AUTHOR_NAME }}"
           git config user.email "${{ env.COMMIT_AUTHOR_EMAIL }}"
-          git add actives.json
-          git add nightly.json
+          git add actives.json nightly-versions.json
           if [ $(git diff --cached --name-only | wc -l) -gt 0 ]; then
             echo "Pushing updated file:"
             git diff --cached --color actives.json
             git commit \
-              -m "Update actives.json (${{ steps.datetime.outputs.value }})" \
+              -m "Update versions (${{ steps.datetime.outputs.value }})" \
               -m "See ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}";
             git push origin;          
           else
