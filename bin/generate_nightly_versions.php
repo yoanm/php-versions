@@ -24,7 +24,7 @@ $qaReleaseList = array_filter(
 $output = [];
 foreach ($qaReleaseList as $version => $data) {
   if (is_array($data) && $data['active'] === true && $data['release']['number'] > 0) {
-    $output[_format_version($version)] = $data;
+    $output[_format_version($version)] = ['version' => $version, ...$data];
   }
 }
 ksort($output, SORT_REGULAR);
