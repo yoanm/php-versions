@@ -24,7 +24,7 @@ $qaReleaseList = array_filter(
 $output = [];
 foreach ($qaReleaseList as $version => $data) {
   if (is_array($data) && $data['active'] === true && $data['release']['number'] > 0) {
-    $rootKey = preg_replace('/^(\d+)\..*$/', '\1', $v);
+    $rootKey = preg_replace('/^(\d+)\..*$/', '\1', $version);
     $subKey = _format_short_version($version);
     $output[$rootKey] ??= [];
     $output[$rootKey][$subKey] ??= [];
