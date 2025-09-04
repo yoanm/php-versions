@@ -1,0 +1,31 @@
+<?php
+include "../web-php-repo/include/release-qa.php";
+
+function _format_version(string $v): string {
+  return preg_replace('/^(\d+\.\d+).*$/', '\1', $v);
+}
+$activeVersionList = array_flip(
+  array_merge(
+    ...array_values(
+      array_map(
+        static fn (array $data): array => array_keys($data), 
+        $active_branches
+      )
+    )
+  )
+);
+$qaReleaseList = array_filter(
+  $QA_RELEASES, 
+  fn (string $key): bool => !array_key_exists(_format_version($key), $activeVersionList),
+  ARRAY_FILTER_USE_KEY,
+);
+
+$output = [];
+foreach ($qaReleaseList as $version => $data) {
+  if (is_array($data) && $data['active'] === true && $data['release']['number'] > 0) {
+    $output[_format_version($version)] = $data;
+  }
+}
+ksort($output, SORT_REGULAR);
+
+echo json_encode($output, JSON_PRETTY_PRINT)."\n";
