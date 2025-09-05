@@ -21,6 +21,21 @@ Example with `7.4+` versions:
     }
 ```
 
+
+> [!TIP]
+>
+> - Find the **lowest** supported version:
+>   ```bash
+>   jq -r '(.[] | keys | sort) | first' actives.json
+>   # output: 7.4
+>   ```
+> - Find the **latest** supported version:
+>   ```bash
+>   jq -r '(.[] | keys | sort) | last' actives.json
+>   # output: 8.1
+>   ```
+>
+
 ## QA releases
 See `qa-releases.json` file, content mostly comes from [https://www.php.net/release-candidates.php?format=json](https://www.php.net/release-candidates.php?format=json) but is filtered and enhanced.
 
@@ -65,7 +80,11 @@ Example with `8.5` version:
 
 > [!TIP]
 >
-> In order to find the nightly version, you can use the following `jq` filter command: `jq -r 'last(.[] | .[] | select(.supported == false)) | .short_version'`
+> In order to find the nightly version, you can use the following `jq` filter command:
+> ```bash
+> jq -r 'last(.[] | .[] | select(.supported == false)) | .short_version' qa-releases.json
+> # output: 8.5
+> ```
 >
 
 <hr/>
