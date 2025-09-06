@@ -48,12 +48,12 @@ jobs:
 
       - name: "Update active versions file"
         run: |
-          php bin/generate_active_versions.php > actives.json
+          php action-bin/generate_active_versions.php > actives.json
           cat actives.json
 
       - name: "Update QA releases file"
         run: |
-          php bin/generate_qa-releases.php > qa-releases.json
+          php action-bin/generate_qa-releases.php > qa-releases.json
           cat qa-releases.json
 
       - name: "Add / commit / push"
