@@ -31,7 +31,7 @@ jobs:
 
       - name: Get current date/time
         id: datetime
-        run: echo "::set-output name=value::$(date +'%Y-%m-%d')"
+        run: echo "value=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
         working-directory: '/tmp' # Repository is not yet there => use tmp directory as working directory
 
       - name: "Checkout php/web-php repository"
