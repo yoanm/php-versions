@@ -13,13 +13,16 @@ on:
   schedule:
     - cron: '42 2 * * 0' # Trigger workflow once a week
 
+permissions:
+  contents: write # In order to push commits
+
 env:
   COMMIT_AUTHOR_NAME: github-actions
   COMMIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
 
 jobs:
   actives:
-    name: "Update actives.json"
+    name: "Update JSON files"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -42,7 +45,6 @@ jobs:
         with:
           ref: '${{ github.head_ref || github.ref }}'
           path: 'php-versions-repo'
-          token: '${{ secrets.PAT_COMMIT }}'
 
       - name: "Update active versions file"
         run: |
