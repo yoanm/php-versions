@@ -24,16 +24,16 @@ Example with `7.4+` versions:
 
 > [!TIP]
 >
-> - Find the **lowest** supported version:
+> - Retrieve **lowest** supported version:
 >   ```bash
->   jq -r '(.[] | keys | sort) | first' actives.json
->   # output: 7.4
+>   bin/fetch_lowest_supported_version.sh
 >   ```
-> - Find the **latest** supported version:
+>   Output: `7.4`
+> - Retrieve **latest** supported version:
 >   ```bash
->   jq -r '(.[] | keys | sort) | last' actives.json
->   # output: 8.1
+>   bin/fetch_latest_supported_version.sh
 >   ```
+>   Output: `8.1`
 >
 
 ## QA releases
@@ -80,11 +80,11 @@ Example with `8.5` version:
 
 > [!TIP]
 >
-> In order to find the nightly version, you can use the following `jq` filter command:
+> Retrieve **nightly** version:
 > ```bash
-> jq -r 'last(.[] | .[] | select(.supported == false)) | .short_version' qa-releases.json
-> # output: 8.5
+> bin/fetch_nightly_version.sh
 > ```
+> Output: `8.5`
 >
 
 <hr/>
