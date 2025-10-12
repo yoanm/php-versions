@@ -1,28 +1,92 @@
 {
     "8": {
-        "8.5": {
+        "8.3": {
             "active": true,
             "release": {
                 "type": "RC",
                 "number": 1,
-                "sha256_bz2": "8365ae9263cc160e6182302f0bdcc80edf1806029556e6870beb3078a625389c",
-                "sha256_gz": "0ea5059a387117fe6ed9a72cdc20945dbff6acc072df936e97d35a9cb26420e0",
-                "sha256_xz": "96f064b5d604e00e5fe1c993d4881da659a99d6d1d8ac0b1df8fec6406e34a9d",
-                "date": "25 Sep 2025",
-                "baseurl": "https:\/\/downloads.php.net\/~daniels\/",
-                "version": "8.5.0RC1",
+                "sha256_bz2": "b6299ac3e1d64873016134d24a5d29364301dc487246fec1546a9202fff3d1c3",
+                "sha256_gz": "ceb41d62a352335e973fc4f1a41c362ee390afe177274efaa614db702daf2f4e",
+                "sha256_xz": "2c34e49f4396b8de245970f9717abe4431b46e16b6fa4d937208928931dfc2f5",
+                "date": "09 Oct 2025",
+                "baseurl": "https:\/\/downloads.php.net\/~eric\/",
+                "version": "8.3.27RC1",
                 "files": {
                     "bz2": {
-                        "sha256": "8365ae9263cc160e6182302f0bdcc80edf1806029556e6870beb3078a625389c",
-                        "path": "https:\/\/downloads.php.net\/~daniels\/php-8.5.0RC1.tar.bz2"
+                        "sha256": "b6299ac3e1d64873016134d24a5d29364301dc487246fec1546a9202fff3d1c3",
+                        "path": "https:\/\/downloads.php.net\/~eric\/php-8.3.27RC1.tar.bz2"
                     },
                     "gz": {
-                        "sha256": "0ea5059a387117fe6ed9a72cdc20945dbff6acc072df936e97d35a9cb26420e0",
-                        "path": "https:\/\/downloads.php.net\/~daniels\/php-8.5.0RC1.tar.gz"
+                        "sha256": "ceb41d62a352335e973fc4f1a41c362ee390afe177274efaa614db702daf2f4e",
+                        "path": "https:\/\/downloads.php.net\/~eric\/php-8.3.27RC1.tar.gz"
                     },
                     "xz": {
-                        "sha256": "96f064b5d604e00e5fe1c993d4881da659a99d6d1d8ac0b1df8fec6406e34a9d",
-                        "path": "https:\/\/downloads.php.net\/~daniels\/php-8.5.0RC1.tar.xz"
+                        "sha256": "2c34e49f4396b8de245970f9717abe4431b46e16b6fa4d937208928931dfc2f5",
+                        "path": "https:\/\/downloads.php.net\/~eric\/php-8.3.27RC1.tar.xz"
+                    }
+                }
+            },
+            "dev_version": "8.3.27-dev",
+            "version": "8.3.27",
+            "short_version": "8.3",
+            "major_version": "8",
+            "supported": true
+        },
+        "8.4": {
+            "active": true,
+            "release": {
+                "type": "RC",
+                "number": 1,
+                "sha256_bz2": "7004bdb9eb56bd236ca4878d5535d62b3a59ee5c7eb676990d71b06a43dfbfe4",
+                "sha256_gz": "5c41a7ac2bb5a8c2db9b13863a554e5f3b6cb1b6377be4b6d22599e0cb129c9e",
+                "sha256_xz": "afa5d25db94f1f34baeddcb8682dfea212f56e3a142651c27a11ca96c1fe5484",
+                "date": "09 Oct 2025",
+                "baseurl": "https:\/\/downloads.php.net\/~saki\/",
+                "version": "8.4.14RC1",
+                "files": {
+                    "bz2": {
+                        "sha256": "7004bdb9eb56bd236ca4878d5535d62b3a59ee5c7eb676990d71b06a43dfbfe4",
+                        "path": "https:\/\/downloads.php.net\/~saki\/php-8.4.14RC1.tar.bz2"
+                    },
+                    "gz": {
+                        "sha256": "5c41a7ac2bb5a8c2db9b13863a554e5f3b6cb1b6377be4b6d22599e0cb129c9e",
+                        "path": "https:\/\/downloads.php.net\/~saki\/php-8.4.14RC1.tar.gz"
+                    },
+                    "xz": {
+                        "sha256": "afa5d25db94f1f34baeddcb8682dfea212f56e3a142651c27a11ca96c1fe5484",
+                        "path": "https:\/\/downloads.php.net\/~saki\/php-8.4.14RC1.tar.xz"
+                    }
+                }
+            },
+            "dev_version": "8.4.14-dev",
+            "version": "8.4.14",
+            "short_version": "8.4",
+            "major_version": "8",
+            "supported": true
+        },
+        "8.5": {
+            "active": true,
+            "release": {
+                "type": "RC",
+                "number": 2,
+                "sha256_bz2": "850dda2016231d27fc33bbc13c26e9957ec9aa1dae7aefb3eaf75cba4eb9aa71",
+                "sha256_gz": "9ba719c814e0e84575aece7c9011dfa2f05479413b3007955dafa1b2537700fc",
+                "sha256_xz": "ddd3edd3d627174b192f9f95934d483da0ba4bbce0bf3f7d255ec65d43dccea0",
+                "date": "09 Oct 2025",
+                "baseurl": "https:\/\/downloads.php.net\/~edorian\/",
+                "version": "8.5.0RC2",
+                "files": {
+                    "bz2": {
+                        "sha256": "850dda2016231d27fc33bbc13c26e9957ec9aa1dae7aefb3eaf75cba4eb9aa71",
+                        "path": "https:\/\/downloads.php.net\/~edorian\/php-8.5.0RC2.tar.bz2"
+                    },
+                    "gz": {
+                        "sha256": "9ba719c814e0e84575aece7c9011dfa2f05479413b3007955dafa1b2537700fc",
+                        "path": "https:\/\/downloads.php.net\/~edorian\/php-8.5.0RC2.tar.gz"
+                    },
+                    "xz": {
+                        "sha256": "ddd3edd3d627174b192f9f95934d483da0ba4bbce0bf3f7d255ec65d43dccea0",
+                        "path": "https:\/\/downloads.php.net\/~edorian\/php-8.5.0RC2.tar.xz"
                     }
                 }
             },
