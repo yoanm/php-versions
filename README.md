@@ -84,8 +84,9 @@ Example with `8.5` version:
 > ```bash
 > bin/fetch_nightly_version.sh
 > ```
-> Output: `8.5`
->
+> Output: `8.5` or `null`<br/>
+> :warning::warning::warning: When a nightly version becomes active, there is a period of time during which there is no more nightly version !<br/>
+> In that case, the script will output `null`, it's up to the caller to manage the case !
 
 <hr/>
 
