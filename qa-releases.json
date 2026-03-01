@@ -1,1 +1,36 @@
-[]
+{
+    "8": {
+        "8.5": {
+            "active": true,
+            "release": {
+                "type": "RC",
+                "number": 1,
+                "sha256_bz2": "75e8dc8e6c44ba3448ab3ce7b1b49b8e9d383b4aa3aa9c3c0f8d76a2101f98f1",
+                "sha256_gz": "33681975c07c5f135c350663b842bf90872eb4b1b7261d6b8b3df019985e0d36",
+                "sha256_xz": "1919770134558df7eda8e439304cb8107cffe86e7d794f6ead60b6be8424a98b",
+                "date": "26 Feb 2026",
+                "baseurl": "https:\/\/downloads.php.net\/~daniels\/",
+                "version": "8.5.4RC1",
+                "files": {
+                    "bz2": {
+                        "sha256": "75e8dc8e6c44ba3448ab3ce7b1b49b8e9d383b4aa3aa9c3c0f8d76a2101f98f1",
+                        "path": "https:\/\/downloads.php.net\/~daniels\/php-8.5.4RC1.tar.bz2"
+                    },
+                    "gz": {
+                        "sha256": "33681975c07c5f135c350663b842bf90872eb4b1b7261d6b8b3df019985e0d36",
+                        "path": "https:\/\/downloads.php.net\/~daniels\/php-8.5.4RC1.tar.gz"
+                    },
+                    "xz": {
+                        "sha256": "1919770134558df7eda8e439304cb8107cffe86e7d794f6ead60b6be8424a98b",
+                        "path": "https:\/\/downloads.php.net\/~daniels\/php-8.5.4RC1.tar.xz"
+                    }
+                }
+            },
+            "dev_version": "8.5.4-dev",
+            "version": "8.5.4",
+            "short_version": "8.5",
+            "major_version": "8",
+            "supported": true
+        }
+    }
+}
